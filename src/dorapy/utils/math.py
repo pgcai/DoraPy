@@ -1,5 +1,6 @@
 '''
 Useful math utilities.
+数学公式库
 '''
 import numpy as np
 

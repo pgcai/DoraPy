@@ -85,7 +85,6 @@ class StructuredParam:
 
     '''
     +
-    这连着的三个add到底是在搞什么
     '''
 
     def __add__(self, other):

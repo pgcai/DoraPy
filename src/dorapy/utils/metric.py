@@ -6,7 +6,17 @@ import numpy as np
 
 
 def _roc_curve(preds, targets, partition, pos_class, neg_class):
-    """ROC curve (for binary classification only)"""
+    """
+    ROC curve (for binary classification only)
+    ROC曲线的作用：
+    1.较容易地查出任意界限值时的对类别的识别能力
+    2.选择最佳的诊断界限值。ROC曲线越靠近左上角,试验的准确性就越高。
+        最靠近左上角的ROC曲线的点是错误最少的最好阈值，其假阳性和假阴性的总数最少。
+    3.两种或两种以上不同诊断试验对算法性能的比较。
+        在对同一种算法的两种或两种以上诊断方法进行比较时，可将各试验的ROC曲线绘制到同一坐标中，以直观地鉴别优劣，
+        靠近左上角的ROC曲线所代表的受试者工作最准确。亦可通过分别计算各个试验的ROC曲线下的面积(AUC)进行比较，
+        哪一种试验的AUC最大，则哪一种试验的诊断价值最佳。
+    """
     thresholds = np.arange(0.0, 1.0, 1.0 / partition)[::-1]
     fpr_list, tpr_list = [], []
     for threshold in thresholds:
@@ -19,7 +29,9 @@ def _roc_curve(preds, targets, partition, pos_class, neg_class):
 
 
 def auc_roc_curve(preds, targets, partition=300, pos_class=1, neg_class=0):
-    """Area unser the ROC curve (for binary classification only)"""
+    """
+    Area unser the ROC curve (for binary classification only)
+    """
     fprs, tprs, thresholds = _roc_curve(preds, targets, partition,
                                         pos_class, neg_class)
     auc_ = 0.0
@@ -30,6 +42,11 @@ def auc_roc_curve(preds, targets, partition=300, pos_class=1, neg_class=0):
 
 
 def auc(preds, targets, pos_class=1, neg_class=0):
+    '''
+    AUC（Area Under Curve）被定义为ROC曲线下与坐标轴围成的面积，显然这个面积的数值不会大于1。
+    又由于ROC曲线一般都处于y=x这条直线的上方，所以AUC的取值范围在0.5和1之间。AUC越接近1.0，检测方法真实性越高;
+    等于0.5时，则真实性最低，无应用价值。
+    '''
     num_pos = np.sum(targets == pos_class)
     num_neg = np.sum(targets == neg_class)
     idx = np.argsort(preds, axis=0)
@@ -60,7 +77,9 @@ def log_loss(preds, targets):
 
 
 def precision(preds, targets, pos_class=1, neg_class=0):
-    """precision = TP / (TP + FP)"""
+    """
+    precision = TP / (TP + FP)
+    """
     assert len(preds) == len(targets)
     true_pos = np.sum((preds == pos_class) & (targets == pos_class))
     false_pos = np.sum((preds == pos_class) & (targets == neg_class))
@@ -70,7 +89,9 @@ def precision(preds, targets, pos_class=1, neg_class=0):
 
 
 def recall(preds, targets, pos_class=1, neg_class=0):
-    """recall = TP / (TP + FN)"""
+    """
+    recall = TP / (TP + FN)
+    """
     assert len(preds) == len(targets)
     true_pos = np.sum((preds == pos_class) & (targets == pos_class))
     false_neg = np.sum((preds == neg_class) & (targets == pos_class))

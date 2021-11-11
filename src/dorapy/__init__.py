@@ -1,9 +1,9 @@
-from dorapy.core import initializer
-from dorapy.core import layer
-from dorapy.core import loss
-from dorapy.core import model
-from dorapy.core import net
-from dorapy.core import optimizer
+from dorapy.nn import initializer
+from dorapy.nn import layer
+from dorapy.nn import loss
+from dorapy.nn import model
+from dorapy.nn import net
+from dorapy.nn import optimizer
 
 from dorapy.utils import data_iterator
 from dorapy.utils import dataset

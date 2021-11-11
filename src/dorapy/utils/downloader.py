@@ -10,11 +10,17 @@ from urllib.request import urlretrieve
 
 
 def show_progress(blk_num, blk_sz, tot_sz):
+    '''
+    显示进度条
+    '''
     percentage = 100.0 * blk_num * blk_sz / tot_sz
     print(f"Progress: {percentage:.1f} %", end="\r", flush=True)
 
 
 def md5_checksum(file_path):
+    '''
+    md5检验
+    '''
     with open(file_path, "rb") as fileobj:
         checksum = hashlib.md5(fileobj.read()).hexdigest()
     return checksum

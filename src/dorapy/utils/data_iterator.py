@@ -14,6 +14,10 @@ Batch = namedtuple("Batch", ['inputs', 'targets'])
 class BaseIterator:
 
     def __call__(self, inputs, targets):
+        '''
+        实现__call__函数，这个类型就成为可调用的。 
+        换句话说，我们可以把这个类型的对象当作函数来使用，相当于 重载了括号运算符。我们可以 实例对象()
+        '''
         raise NotImplementedError
 
 class BatchIterator(BaseIterator):
