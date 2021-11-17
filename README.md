@@ -19,5 +19,34 @@
 ░░░░░░░    ░░░░░░  ░░░     ░░░░░░░░ ░░        ░░      
 ```
 
+<<<<<<< HEAD
+## **Dorapy** 
+=======
 **Dorapy** is a deep learning framework that focuses on data preprocessing.🛸
+>>>>>>> b58660be5cd203fe8c50399fc2fea5af1e989a51
 
+#### is a deep learning framework that focuses on data preprocessing.🛸
+
+
+
+### INSTALLING DORAPY
+
+If you use `pip`, you can install DoraPy with:
+
+```bash
+pip install dorapy
+```
+
+
+
+### DoraPy quickstart
+
+```bash
+mnist_train.py
+```
+
+
+
+### Contribution
+
+- pgcai

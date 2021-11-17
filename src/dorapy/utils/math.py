@@ -35,6 +35,8 @@ def sigmoid(x):
     ret[x <= 0] = a/(1.0 + a)
     return ret
 
+def gelu(x):
+    pass
 
 
 

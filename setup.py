@@ -5,7 +5,8 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="DoraPy",
-    version="1.0.0",
+    # version="1.0.0",
+    version="1.1.0",
     author="pgCai",
     author_email="pgcai@tju.edu.cn",
     description="Dorapy is a deep learning framework that focuses on data preprocessing.🛸",

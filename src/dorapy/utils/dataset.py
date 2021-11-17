@@ -85,15 +85,19 @@ class MNIST(Dataset):
 
 
 class FashionMNIST(Dataset):
+    print("还没写呢...")
     pass
 
 class Cifar(Dataset):
+    print("还没写呢...")
     pass
 
 class Cifar10(Cifar):
+    print("还没写呢...")
     pass
 
 class Cifar100(Cifar):
+    print("还没写呢...")
     pass
 
 
