@@ -5,14 +5,16 @@
 author：pgcai
 
 function:
-1. 将视频分帧到指定文件夹
-2. 将指定文件夹图片合成为视频
+1. def video2img(videoPath, savePath, timeF = 1, file_end='.jpg')   将视频分帧到指定文件夹
+2. img2video(savePath, videoPath, fps = 30, file_end=('.jpg'))  将指定文件夹图片合成为视频
 3. 拼接两个视频
+4. 
 
 '''
 import cv2
 import os
 from dirTool import *
+import numpy as np
 
 
 # 将视频分帧到指定文件夹
@@ -43,8 +45,14 @@ def video2img(videoPath, savePath, timeF = 1, file_end='.jpg'):
 # 将指定文件夹图片合成为视频
 def img2video(savePath, videoPath, fps = 30, file_end=('.jpg')):
     print("img2video ing ******")
-    imglist = get_numfile(savePath, file_end)
+    # imglist = get_numfile(savePath, file_end)
+    imglist = get_file(savePath, file_end)
+    print(imglist)
     img = cv2.imread(imglist[0])  #读取第一张图片
+    print("imglist[0] = ",imglist[0])
+    print(img)
+    img = np.array(img)
+    print("img.shape = ", img.shape)
     imgInfo = img.shape
     size = (imgInfo[1],imgInfo[0])  #获取图片宽高度信息
     print(size)
@@ -63,5 +71,7 @@ def img2video(savePath, videoPath, fps = 30, file_end=('.jpg')):
 
 if __name__=='__main__':
     print("Welcome to MyTools!")
-    video2img("./example/data/test.mp4","./example/data/testout")
-    img2video("./example/data/testout","./example/data/",file_end='.jpg')
+    # video_path = "D:\hy\data\smoke_over\smoke01"
+    # video2img("./example/data/test.mp4","./example/data/testout")
+    # img2video("./example/data/testout","./example/data/",file_end='.jpg')
+    img2video("D:\hy\data\smoke_over\smoke01","D:\hy\data\smoke01", fps=5, file_end='.jpg')

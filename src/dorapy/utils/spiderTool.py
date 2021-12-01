@@ -1,5 +1,8 @@
 '''
 爬虫工具，帮助你省时省力
+
+function:
+1. get_headers(url, use='pc')	随机生成设备头
 '''
 import requests
 

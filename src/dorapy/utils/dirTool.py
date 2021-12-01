@@ -2,11 +2,11 @@
 获取文件夹下所有图片的路径
 author:pgcai
 function：
-1. 获取指定文件夹下指定后缀文件/不包含子文件夹
-2. 获取指定文件夹下指定后缀文件/不包含子文件夹//文件名需要为number/排序
-3. 获取指定文件夹下指定后缀文件/包含子目录
-4. 获取指定文件夹下指定后缀文件/包含子目录/文件名需要为number/排序
-5. 根据当前时间新建文件夹
+1. get_file(file_path, file_end=('.png', '.jpg', '.jpeg'))      获取指定文件夹下指定后缀文件/不包含子文件夹
+2. get_numfile(file_path, file_end=('.png', '.jpg', '.jpeg'))   获取指定文件夹下指定后缀文件/不包含子文件夹//文件名需要为number/排序
+3. get_file_sub(file_path, filelist=[], file_end=('.png', '.jpg'))      获取指定文件夹下指定后缀文件/包含子目录
+4. get_numfile_sub(file_path, filelist=[], file_end=('.png', '.jpg'))   获取指定文件夹下指定后缀文件/包含子目录/文件名需要为number/排序
+5. new_folder(dirpath)  根据当前时间新建文件夹
 '''
 import sys
 sys.path.append(r'./utils')      # 为了能找到自写函数
@@ -15,11 +15,8 @@ import os
 import re
 from dateTool import *
 
-'''
-获取指定文件夹下指定后缀文件,不包含子文件夹
-(文件夹路径, 后缀名)
-'''
-def get_file(file_path, file_end=('.bmp', '.dib', '.png', '.jpg', '.jpeg', '.pbm', '.pgm', '.ppm', '.tif', '.tiff')):
+
+def get_file(file_path, file_end=('.png', '.jpg', '.jpeg')):
     '''
     获取指定文件夹下指定后缀文件,不包含子文件夹
     (文件夹路径, 后缀名)
@@ -31,11 +28,7 @@ def get_file(file_path, file_end=('.bmp', '.dib', '.png', '.jpg', '.jpeg', '.pbm
                 filelist.append(os.path.join(parent, filename))
         return filelist
 
-'''
-获取指定文件夹下指定后缀文件,不包含子文件夹     数字文件排序
-(文件夹路径, 后缀名)
-'''
-def get_numfile(file_path, file_end=('.bmp', '.dib', '.png', '.jpg', '.jpeg', '.pbm', '.pgm', '.ppm', '.tif', '.tiff')):
+def get_numfile(file_path, file_end=('.png', '.jpg', '.jpeg')):
     '''
     获取指定文件夹下指定后缀文件,不包含子文件夹     数字文件排序
     (文件夹路径, 后缀名)
@@ -49,11 +42,11 @@ def get_numfile(file_path, file_end=('.bmp', '.dib', '.png', '.jpg', '.jpeg', '.
         return filelist
 
 
-'''
-获取指定文件夹下指定后缀文件 包含子目录
-'''
 
 def get_file_sub(file_path, filelist=[], file_end=('.png', '.jpg')):
+    '''
+    获取指定文件夹下指定后缀文件 包含子目录
+    '''
     print('\r--------正在统计文件夹下指定后缀文件路径信息--------', end="")
     for parent, dirnames, filenames in os.walk(file_path):
         for dirname in dirnames:
@@ -69,10 +62,10 @@ def get_file_sub(file_path, filelist=[], file_end=('.png', '.jpg')):
                 filelist.append(os.path.join(parent, filename))
         return filelist
 
-'''
-获取指定文件夹下指定后缀文件 包含子目录 文件名需要为 number 便于排序
-'''
 def get_numfile_sub(file_path, filelist=[], file_end=('.png', '.jpg')):
+    '''
+    获取指定文件夹下指定后缀文件 包含子目录 文件名需要为 number 便于排序
+    '''
     print('\r--------正在统计文件夹下指定后缀文件路径信息--------', end="")
     for parent, dirnames, filenames in os.walk(file_path):
         dirnames.sort() # 按文件夹名排序
@@ -95,8 +88,10 @@ def get_numfile_sub(file_path, filelist=[], file_end=('.png', '.jpg')):
                 filelist.append(os.path.join(parent, filename))
         return filelist
 
-# 根据当前时间(年月日时分秒)新建文件夹
 def new_folder(dirpath):
+    '''
+    根据当前时间(年月日时分秒)新建文件夹
+    '''
     timeString = getDateYMDHMS()
     makePath = dirpath + '/' + timeString
     folder = os.path.exists(makePath)

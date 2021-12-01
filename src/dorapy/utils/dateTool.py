@@ -2,9 +2,9 @@
 获取当前时间方便文件命名
 
 function:
-1. 返回年月日|时分秒|毫秒
-2. 返回年月日
-3. 返回年月日|时分秒
+1. getDateYMDHMSU()     返回年月日|时分秒|毫秒
+2. getDateYMD()         返回年月日
+3. getDateYMDHMS()      返回年月日|时分秒
 
 '''
 import datetime
