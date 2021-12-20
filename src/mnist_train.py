@@ -1,3 +1,7 @@
+'''
+分类问题示例
+手写数字识别示例
+'''
 import argparse
 import os
 import time

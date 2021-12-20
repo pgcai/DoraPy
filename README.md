@@ -19,7 +19,11 @@ pip install dorapy
 ### ▶️DoraPy quickstart
 
 ```bash
+# Classification
 mnist_train.py
+
+# Regression
+curve_train.py
 ```
 
 

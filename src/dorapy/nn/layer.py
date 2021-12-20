@@ -363,8 +363,19 @@ class Activation(Layer):
 class Sigmoid(Activation):
     '''
     sigmoid激活函数
+    20211220
+    author:pgcai
     '''
-    pass
+    def func(self, x):
+        x = np.asarray(x)
+        ret = np.zeros_like(x, dtype=float)
+        ret[x > 0] = 1.0 / (1.0 + np.exp(-x[x > 0]))
+        a = np.exp(x[x <= 0])
+        ret[x <= 0] = a/(1.0 + a)
+        return ret
+    
+    def derivative_func(self, x):
+        return self.func(x)*(1-self.func(x))
 
 class Softplus(Activation):
     '''

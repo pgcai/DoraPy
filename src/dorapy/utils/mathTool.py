@@ -11,6 +11,7 @@ function:
 6. var(nlist)   求数组方差
 7. std(nlist)   求数组标准差
 7. normalization(nlist)     归一化
+7.2. normalization_min_numrange(nlist, min, numrange)     指定最小值 范围归一化
 8. standardization(nlist)   标准化
 9. sta_mean_std(nlist, mean, std)   指定 均值 标准差 标准化
 10. euclidean_distance(a, b)        计算两向量的欧氏距离
@@ -23,9 +24,9 @@ function:
 17. arc_sin_cos(sin_theta, cos_theta)   同时输入sin 与 cos 计算角度值
 18. theta_angle(sin_theta, cos_theta, angle)    输入正弦余弦值，返回旋转angle角度后的正弦余弦值
 19. vector_3d_angle(v1, v2)     求两个3-dim向量的夹角
-20. 
-21. 
-22. 
+20. rmse(a, b)      RMSE均方误差根
+21. mae(a, b)       MAE平均绝对误差
+22. cc(a, b)        Correlation coefficient 相关系数
 23. 
 24. 
 
@@ -62,19 +63,41 @@ def var(nlist):
 def std(nlist):
     return np.std(nlist)
 
-# 归一化
 def normalization(nlist):
+    '''
+    归一化
+    '''
+    nlist = np.array(nlist, dtype=np.float32)
     min = np.min(nlist)
     numrange = np.max(nlist) - min
+
+    print("min = ", min)
+    print("numrange = ", numrange)
+
+    return (nlist - min) / numrange
+def normalization_min_numrange(nlist, min, numrange):
+    '''
+    指定min, numrange归一化
+    '''
+    nlist = np.array(nlist, dtype=np.float32)
     return (nlist - min) / numrange
 
-
-# 标准化
 def standardization(nlist):
-    return (nlist - mean(nlist)) / std(nlist)
+    '''
+    标准化
+    '''
+    nlist = np.array(nlist, dtype=np.float32)
+    mean_list = mean(nlist)
+    std_list = std(nlist)
+    print("mean_list = ", mean_list)
+    print("std_list = ", std_list)
+    return (nlist - mean_list) / std_list
 
-# 指定 均值 标准差 标准化
 def sta_mean_std(nlist, mean, std):
+    '''
+    标准化\n
+    指定 均值 标准差 
+    '''
     return (nlist - mean) / std
 
 
@@ -166,7 +189,45 @@ def vector_3d_angle(v1, v2):
     print(cos_theta)
     return arccos(cos_theta)
 
+def rmse(a, b):
+    '''
+    求两数组的RMSE均方根误差\n
+    a:真实值    b:预测值
+    '''
+    a, b = np.array(a), np.array(b)
+    c = b - a
+    m = len(a)
+    return np.sqrt(np.sum(c*c)/m)
+
+def mae(a, b):
+    '''
+    求两数组的MAE平均绝对误差\n
+    a:真实值    b:预测值
+    '''
+    a, b = np.array(a), np.array(b)
+    c = np.absolute(b - a)
+    m = len(a)
+    return np.sum(c)/m
+
+def cc(a, b):
+    '''
+    Correlation coefficient 相关系数\n
+    a:真实值    b:预测值
+    '''    
+    a, b = np.array(a), np.array(b)
+    mean_a = mean(a)
+    mean_b = mean(b)
+    print(mean_a, mean_b)
+    
+    up = np.sum((a - mean_a)*(b - mean_b))
+    down = math.sqrt(np.sum((a - mean_a)**2 )) * math.sqrt(np.sum((b - mean_b)**2))
+    return up/down
+    # return np.corrcoef(a, b)
+    
+
+
 if __name__=='__main__':
+    from txtTool import txtReadArray
     # print(str(relu(-1)))
     # print(str(relu(999)))
     # a = [4, 2, 35, 4, 325, 6, 1, 345, 54, 4, 554, 6, 1, 325, 78, 4, 55, 676]
@@ -215,6 +276,15 @@ if __name__=='__main__':
     print(arc_sin_cos(sin_theta3, cos_theta3))
 
     print(vector_3d_angle([1,1,0], [1,-1,0]))
+
+    print("rmse", rmse([1,2,3], [4,3,5]))
+    print("mae", mae([1,2,3], [4,3,2]))
+    print("cc", cc([1,2,3], [3,5,2]))
+
+    speed = txtReadArray("./example/data/true.txt")
+    print(speed[:3])
+    print(normalization(speed))
+    print(standardization(speed))
     
 
 
